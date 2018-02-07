@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-navbar color="mycolor">
+    <ion-title>
+      Testing
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="back">
+  <ion-list item-left>
+		<ion-item>
+			<ion-label>the language</ion-label>
+			<ion-select [(ngModel)]="selectedtype" #C (ionChange)="afficherLaLangue();" >
+				<ion-option *ngFor="let type of types" [value]="type.value">{{type.type}}</ion-option>
+			</ion-select>
+		</ion-item>
+	</ion-list>
+  <br>
+  <ion-item>
+  <table>
+    <tr>
+      <td class="like" *ngFor="let vari of colors"><ion-icon name="{{vari.name}}" color="{{vari.color}}"></ion-icon></td>
+    </tr>
+  </table>
+  </ion-item>
+  <br>
+  <button *ngIf="selectedtype && !type" class="bot" ion-button  round color="light" (click)="lastD()">Last Day</button><br *ngIf="!type">
+  <button *ngIf="selectedtype && !type" class="bot" ion-button  round color="light" (click)="lastW()">Last Week</button><br *ngIf="!type">
+  <button *ngIf="selectedtype && !type" class="bot" ion-button  round color="light" (click)="lastM()">Lant Month</button><br *ngIf="!type">
+  <button *ngIf="selectedtype && !type" class="bot" ion-button  round color="light" (click)="all()">All</button><br *ngIf="!type">
+  
+  <button *ngIf="type && !theWord && con == 0" class="bot" ion-button  round color="light" (click)="start()">Start Test</button><br *ngIf="!type">
+  
+  <ion-item *ngIf="theWord">
+    <ion-label>{{theWord}}</ion-label>
+    <!--<ion-textarea rows="4" type="text" [(ngModel)]="ngWord" placeholder="the word"></ion-textarea>-->
+  </ion-item>
+  <br>
+  <ion-item *ngIf="theWord">
+    <ion-textarea rows="4" type="text" [(ngModel)]="ngTranslation" placeholder="الترجمة"></ion-textarea>
+  </ion-item>
+  <br>
+  <button *ngIf="con != 10 && type && theWord" class="bot" ion-button  round color="light" (click)="continuous()">next</button>
+  <button *ngIf="con == 10 && type" class="bot" ion-button  round color="light" (click)="finish()">Finish</button>
+  <br>
+  <br>
+
+  <ion-list *ngIf="tests">
+    <ion-item-sliding #item *ngFor="let test of tests">
+      <ion-item >
+        <table>
+          <tr><td><b>Tested :</b></td><td><b>{{test.adate | date: 'dd/MM/yyyy hh:mm a'}}</b></td></tr>
+          <tr><td>Type  :</td><td>{{test.type}}</td><td>{{test.note}}</td></tr>
+          <tr><td>Langue :</td><td>{{test.langue}}</td></tr>
+        </table>
+      </ion-item>
+      <ion-item-options side="left">
+        <button color="danger" ion-button (click)="delete(test)">
+          <ion-icon ios="ios-trash" md="md-trash"></ion-icon>
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <!--<ion-list *ngIf="words">
+    <ion-item-sliding #item *ngFor="let word of words">
+      <ion-item>
+        {{ word.word }}<span item-end>{{ word.trans }}</span>
+      </ion-item>
+      <ion-item-options side="left">
+        <button color="but" ion-button (click)="deleteItem(word)">
+          <ion-icon ios="ios-trash" md="md-trash"></ion-icon>
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>-->
+</ion-content>

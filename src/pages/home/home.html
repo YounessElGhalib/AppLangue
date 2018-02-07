@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-navbar color="mycolor">
+    <ion-title>New Word</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="back">
+  <br>
+  <ion-list item-left>
+    <ion-item>
+      <ion-label>the language</ion-label>
+      <ion-select [(ngModel)]="selectedtype" #C (ionChange)="afficherLaLangue(); list()">
+        <ion-option *ngFor="let type of types" [value]="type.value">{{type.type}}</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+  <br>
+  <ion-item>
+    <ion-input type="text" [(ngModel)]="ngWord" placeholder="the word"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-input type="text" [(ngModel)]="ngTranslation" placeholder="الترجمة"></ion-input>
+  </ion-item>
+  <br>
+  <button *ngIf="selectedtype" class="bot" ion-button round color="light" (click)="saveWordData()">Save</button>
+  <br>
+  <br>
+  <p class="red" *ngIf="lengthWord != 0 && lengthWord > 0">You should Add 10 words every day. You still have : {{lengthWord}}</p>
+  <p class="green" *ngIf="lengthWord <= 0">You finished the mission of today</p>
+  <br>
+  <ion-list *ngIf="words">
+    <ion-item-sliding  #item *ngFor="let word of words">
+      <ion-item>
+        {{ word.word }}<span item-end>{{ word.trans }}</span>
+      </ion-item>
+      <ion-item-options side="left">
+        <button color="danger" ion-button (click)="deleteItem(word)">
+          <ion-icon ios="ios-trash" md="md-trash"></ion-icon>
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>

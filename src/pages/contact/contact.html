@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-navbar color="mycolor">
+    <ion-title>
+      Contact
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="back">
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <br>
+  <button ion-button full color="light" (click)="en_afficher()">Words English :    {{englishLength}}</button>
+  <button ion-button full color="light" (click)="fr_afficher()">Mots Francais :    {{frenchLength}}</button>
+
+  <br>
+  <ion-list *ngIf="words">
+    <ion-item-sliding #item *ngFor="let word of words">
+      <ion-item>
+        {{ word.word }}<span item-end>{{ word.trans }}</span>
+      </ion-item>
+      <ion-item-options side="left">
+        <button color="danger" ion-button (click)="deleteItem(word)">
+          <ion-icon ios="ios-trash" md="md-trash"></ion-icon>
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+  <br>
+  <br>
+  <b>All tests is here</b>
+  <br>
+  <ion-list *ngIf="tests">
+    <ion-item-sliding #item *ngFor="let test of tests">
+      <ion-item>
+        <table>
+          <tr>
+            <td><b>Tested :</b></td>
+            <td><b>{{test.adate | date: 'dd/MM/yyyy hh:mm a'}}</b></td>
+          </tr>
+          <tr>
+            <td>Type :</td>
+            <td>{{test.type}}</td>
+            <td>{{test.note}}</td>
+          </tr>
+          <tr>
+            <td>Langue :</td>
+            <td>{{test.langue}}</td>
+          </tr>
+        </table>
+      </ion-item>
+      <ion-item-options side="left">
+        <button color="danger" ion-button (click)="delete(test)">
+          <ion-icon ios="ios-trash" md="md-trash"></ion-icon>
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>
